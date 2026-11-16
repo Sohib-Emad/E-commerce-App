@@ -1,38 +1,32 @@
-import 'package:eco/core/theme/app_image.dart';
-import 'package:eco/core/widgets/search_bar.dart';
-import 'package:eco/feature/home/widgets/category.dart';
-import 'package:eco/feature/home/widgets/header_app.dart';
-import 'package:eco/feature/home/widgets/recent_product.dart';
+import 'package:eco/core/widgets/custom_bottom_nav_bar.dart';
+import 'package:eco/feature/home/widgets/home_body.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _selectedIndex = 0;
+
+  final List<Widget> _screens = const [
+    HomeBody(), 
+    Center(child: Text('Wishlist')),
+    Center(child: Text('History')),
+    Center(child: Text('Account')),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 24.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const HeaderApp(),
-                SizedBox(height: 25.h),
-                const SearchBar2(),
-                SizedBox(height: 25.h),
-                Image.asset(AppImage.banner1),
-                SizedBox(height: 18.h),
-                const CategoryWidget(),
-                SizedBox(height: 20.h),
-                const RecentProduct(),
-              ],
-            ),
-          ),
-        ),
+      body: IndexedStack(index: _selectedIndex, children: _screens),
+      bottomNavigationBar: CustomBottomNavBar(
+        currentIndex: _selectedIndex,
+        onTap: (index) => setState(() => _selectedIndex = index),
       ),
     );
   }
