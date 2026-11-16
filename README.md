@@ -6,7 +6,7 @@ A Flutter e-commerce application (work in progress).
 
 ### Home Screen
 
-<img src="assets/app_screen/home.png" alt="Home Screen" width="280" />
+<img src="assets/app_screen/homescreen.png" alt="Home Screen" width="280" />
 
 ## Getting Started
 
