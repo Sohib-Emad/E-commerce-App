@@ -17,7 +17,7 @@ class AppStyles {
   );
   static TextStyle category = TextStyle(
     fontSize: 20.sp,
-    fontWeight: FontWeightHelper.medium,
+    fontWeight: FontWeightHelper.bold,
     color: AppColors.homeheader2,
   );
 
