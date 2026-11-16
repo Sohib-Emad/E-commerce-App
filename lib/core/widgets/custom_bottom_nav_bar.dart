@@ -70,7 +70,7 @@ class CustomBottomNavBar extends StatelessWidget {
             children: List.generate(_items.length, (index) {
               final item = _items[index];
               final isSelected = index == currentIndex;
-              final color = isSelected ? AppColors.green : _inactiveColor;
+              final color = isSelected ? AppColors.greenSheen : _inactiveColor;
 
               return Expanded(
                 child: InkWell(
