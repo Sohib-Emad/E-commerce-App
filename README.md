@@ -1,4 +1,4 @@
-# eco
+# E-commerce application
 
 A Flutter e-commerce application (work in progress).
 
