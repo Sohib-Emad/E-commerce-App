@@ -9,6 +9,6 @@ class AppColors {
   static const Color green = Color(0xff12B76A);
   static const Color homeheader1 = Color(0xffC8C8CB);
   static const Color homeheader2 = Color(0xff393F42);
-
+  static const Color grey = Color(0xffF0F2F1);
 
 }
