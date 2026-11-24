@@ -1,3 +1,4 @@
+import 'package:eco/core/routes/app_routes.dart';
 import 'package:eco/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -7,6 +8,10 @@ class SearchBar2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      readOnly: true,
+      onTap: () {
+        Navigator.pushNamed(context, AppRoutes.search);
+      },
       keyboardType: TextInputType.text,
       cursorColor: AppColors.homeheader2,
       decoration: InputDecoration(

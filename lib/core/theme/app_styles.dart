@@ -21,6 +21,12 @@ class AppStyles {
     color: AppColors.homeheader2,
   );
 
+  static TextStyle searchResult = TextStyle(
+    fontSize: 14.sp,
+    fontWeight: FontWeightHelper.regular,
+    color: AppColors.homeheader2,
+  );
+
   static TextStyle categoryName = TextStyle(
     fontSize: 12.sp,
     fontWeight: FontWeightHelper.regular,
