@@ -8,17 +8,9 @@ A Flutter e-commerce application (work in progress).
 
 ## Screenshots
 
-### Home Screen
-
-<img src="assets/app_screen/homescreen.png" alt="Home Screen" width="280" />
-
-### Search Page
-
-<img src="assets/app_screen/Search%20page.png" alt="Search Page" width="280" />
-
-### Search Results
-
-<img src="assets/app_screen/search%20result.png" alt="Search Results" width="280" />
+| Home Screen | Search Page | Search Results |
+| :---: | :---: | :---: |
+| <img src="assets/app_screen/homescreen.png" alt="Home Screen" width="220" /> | <img src="assets/app_screen/Search%20page.png" alt="Search Page" width="220" /> | <img src="assets/app_screen/search%20result.png" alt="Search Results" width="220" /> |
 
 ## Getting Started
 
