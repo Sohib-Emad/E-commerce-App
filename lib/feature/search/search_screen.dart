@@ -1,7 +1,9 @@
+import 'package:eco/core/theme/app_image.dart';
+import 'package:eco/core/widgets/app_search_field.dart';
 import 'package:eco/feature/search/widgets/last_search.dart';
-import 'package:eco/feature/search/widgets/search.dart';
 import 'package:eco/feature/search/widgets/search_result.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -12,9 +14,41 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   final _controller = TextEditingController();
+  final List<String> _lastSearches = [
+    'Iphone 12 pro max',
+    'Camera fujifilm',
+    'Tripod Mini',
+    'Bluetooth speaker',
+    'Drawing pad',
+  ];
+
+  String _query = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.addListener(_onQueryChanged);
+  }
+
+  void _onQueryChanged() {
+    setState(() => _query = _controller.text.trim());
+  }
+
+  void _selectSuggestion(String value) {
+    _controller.text = value;
+  }
+
+  void _removeSuggestion(String value) {
+    setState(() => _lastSearches.remove(value));
+  }
+
+  void _clearSuggestions() {
+    setState(_lastSearches.clear);
+  }
 
   @override
   void dispose() {
+    _controller.removeListener(_onQueryChanged);
     _controller.dispose();
     super.dispose();
   }
@@ -25,7 +59,7 @@ class _SearchScreenState extends State<SearchScreen> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          padding: EdgeInsets.symmetric(horizontal: 8.w),
           child: Column(
             children: [
               Row(
@@ -35,27 +69,28 @@ class _SearchScreenState extends State<SearchScreen> {
                     onPressed: () => Navigator.pop(context),
                   ),
                   Expanded(
-                    child: SearchBarText(
+                    child: AppSearchField(
                       controller: _controller,
-                      onChanged: (_) => setState(() {}),
+                      autofocus: true,
                     ),
                   ),
-                  const SizedBox(width: 8),
-                  Image.asset('assets/icons/Buy.png', width: 28, height: 28),
+                  SizedBox(width: 8.w),
+                  Image.asset(AppImage.cart, width: 28.r, height: 28.r),
                 ],
               ),
-
-              const SizedBox(height: 2),
-
-              if (_controller.text.isEmpty)
-                const Padding(
-                  padding: EdgeInsets.all(16),
-                  child: LastSearchSection(),
+              SizedBox(height: 2.h),
+              if (_query.isEmpty)
+                Padding(
+                  padding: EdgeInsets.all(16.w),
+                  child: LastSearchSection(
+                    items: _lastSearches,
+                    onSelected: _selectSuggestion,
+                    onRemoved: _removeSuggestion,
+                    onCleared: _clearSuggestions,
+                  ),
                 )
               else
-                Expanded(child: SearchResult(
-                  searchQuery: _controller.text,
-                )),
+                Expanded(child: SearchResult(searchQuery: _query)),
             ],
           ),
         ),

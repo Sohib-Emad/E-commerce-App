@@ -1,8 +1,11 @@
+import 'package:eco/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AddToCart extends StatelessWidget {
-  const AddToCart({super.key});
+  const AddToCart({super.key, this.onPressed});
+
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -10,17 +13,19 @@ class AddToCart extends StatelessWidget {
       width: 144.w,
       height: 32.h,
       child: ElevatedButton(
-        onPressed:  () {},
+        onPressed: onPressed ?? () {},
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF7DC4A5),
+          backgroundColor: AppColors.primary,
           foregroundColor: Colors.white,
           elevation: 0,
           padding: EdgeInsets.zero,
+          minimumSize: Size.zero,
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(6.r),
           ),
         ),
-        child: Text("Add to cart", style: TextStyle(fontSize: 13.sp)),
+        child: Text('Add to cart', style: TextStyle(fontSize: 13.sp)),
       ),
     );
   }

@@ -16,11 +16,16 @@ class MyApp extends StatelessWidget {
       designSize: const Size(390, 844),
       minTextAdapt: true,
       splitScreenMode: true,
-      // Use builder only if you need to use library outside ScreenUtilInit context
-      builder: (_, child) {
+      builder: (context, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'E-Commerce App Demo',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: const Color(0xff67C4A7),
+            ),
+            useMaterial3: true,
+          ),
           initialRoute: AppRoutes.home,
           onGenerateRoute: AppRouter().onGenerateRoute,
         );

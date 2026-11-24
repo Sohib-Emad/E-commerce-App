@@ -1,52 +1,77 @@
+import 'package:eco/core/theme/app_image.dart';
 import 'package:eco/core/theme/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+class _Category {
+  const _Category({
+    required this.icon,
+    required this.name,
+    required this.color,
+  });
+
+  final String icon;
+  final String name;
+  final Color color;
+}
+
 class CategoryWidget extends StatelessWidget {
   const CategoryWidget({super.key});
+
+  static const _categories = [
+    _Category(
+      icon: AppImage.categoryApparel,
+      name: 'Apparel',
+      color: Color(0xFFEEF6FF),
+    ),
+    _Category(
+      icon: AppImage.categorySchool,
+      name: 'School',
+      color: Color(0xFFEBFAFF),
+    ),
+    _Category(
+      icon: AppImage.categorySports,
+      name: 'Sports',
+      color: Color(0xFFFFEDDD),
+    ),
+    _Category(
+      icon: AppImage.categoryElectronic,
+      name: 'Electronic',
+      color: Color(0xFFFDECEA),
+    ),
+    _Category(
+      icon: AppImage.categoryAll,
+      name: 'All',
+      color: Color(0xFFE9FCF6),
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Category", style: AppStyles.category),
+        Text('Category', style: AppStyles.sectionTitle),
         SizedBox(height: 12.h),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            buildCategoryItem(
-              'assets/icons/category1.png',
-              'Apparel',
-              const Color(0xFFEEF6FF),
-            ),
-            buildCategoryItem(
-              'assets/icons/category2.png',
-              'School',
-              const Color(0xFFEBFAFF),
-            ),
-            buildCategoryItem(
-              'assets/icons/category3.png',
-              'Sports',
-              const Color(0xFFFFEDDD),
-            ),
-            buildCategoryItem(
-              'assets/icons/category4.png',
-              'Electronic',
-              const Color(0xFFFDECEA),
-            ),
-            buildCategoryItem(
-              'assets/icons/category5.png',
-              'All',
-              const Color(0xFFE9FCF6),
-            ),
+            for (final category in _categories)
+              Expanded(child: _CategoryItem(category: category)),
           ],
         ),
       ],
     );
   }
+}
 
-  Widget buildCategoryItem(String imagePath, String categoryName, Color color) {
+class _CategoryItem extends StatelessWidget {
+  const _CategoryItem({required this.category});
+
+  final _Category category;
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
         Container(
@@ -54,18 +79,23 @@ class CategoryWidget extends StatelessWidget {
           height: 60.r,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: color,
+            color: category.color,
             borderRadius: BorderRadius.circular(12.r),
           ),
           child: Image.asset(
-            imagePath,
+            category.icon,
             fit: BoxFit.contain,
             width: 32.r,
             height: 32.r,
           ),
         ),
         SizedBox(height: 8.h),
-        Text(categoryName, style: AppStyles.categoryName),
+        Text(
+          category.name,
+          style: AppStyles.itemTitle,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
       ],
     );
   }

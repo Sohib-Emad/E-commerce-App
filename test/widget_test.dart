@@ -1,30 +1,59 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
+import 'package:eco/core/widgets/app_search_field.dart';
+import 'package:eco/core/widgets/product_card.dart';
+import 'package:eco/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:eco/main.dart';
+Future<void> pumpApp(WidgetTester tester) async {
+  tester.view.physicalSize = const Size(390, 844);
+  tester.view.devicePixelRatio = 1;
+  addTearDown(tester.view.reset);
+  await tester.pumpWidget(const MyApp());
+}
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('home screen shows products and opens search', (tester) async {
+    await pumpApp(tester);
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    expect(find.text('Delivery address'), findsOneWidget);
+    expect(find.text('Recent product'), findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    await tester.tap(find.byType(AppSearchField));
+    await tester.pumpAndSettle();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(find.text('Last search'), findsOneWidget);
+  });
+
+  testWidgets('search filters products by name', (tester) async {
+    await pumpApp(tester);
+
+    await tester.tap(find.byType(AppSearchField));
+    await tester.pumpAndSettle();
+
+    await tester.enterText(find.byType(AppSearchField), 'mug');
+    await tester.pumpAndSettle();
+
+    expect(find.text('Aestechic Mug - white'), findsOneWidget);
+    expect(find.textContaining('Search result for'), findsOneWidget);
+  });
+
+  testWidgets('product card opens the product details screen', (tester) async {
+    await pumpApp(tester);
+
+    final card = find.byWidgetPredicate(
+      (widget) =>
+          widget is ProductCard &&
+          widget.product.name == 'Aestechic Mug - white',
+    );
+    await tester.scrollUntilVisible(
+      card,
+      200,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.tap(card);
+    await tester.pumpAndSettle();
+
+    expect(find.text('Product Details'), findsOneWidget);
+    expect(find.text('\$ 19.99'), findsOneWidget);
   });
 }

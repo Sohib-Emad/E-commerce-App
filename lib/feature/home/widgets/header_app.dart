@@ -1,4 +1,5 @@
 import 'package:eco/core/theme/app_colors.dart';
+import 'package:eco/core/theme/app_image.dart';
 import 'package:eco/core/theme/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,20 +15,22 @@ class HeaderApp extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Delivery address", style: AppStyles.homeheading1),
+              Text('Delivery address', style: AppStyles.subtitle),
               SizedBox(height: 4.h),
               Row(
                 children: [
-                  Text(
-                    "Salatiga City, Central Java",
-                    style: AppStyles.homeheading2,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                  Expanded(
+                    child: Text(
+                      'Salatiga City, Central Java',
+                      style: AppStyles.body,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                   Icon(
                     Icons.keyboard_arrow_down,
                     size: 20.r,
-                    color: AppColors.homeheader2,
+                    color: AppColors.textPrimary,
                   ),
                 ],
               ),
@@ -35,9 +38,9 @@ class HeaderApp extends StatelessWidget {
           ),
         ),
         SizedBox(width: 12.w),
-        Image.asset('assets/icons/Buy.png', width: 28.r, height: 28.r),
+        Image.asset(AppImage.cart, width: 28.r, height: 28.r),
         SizedBox(width: 16.w),
-        Image.asset('assets/icons/Notification.png', width: 28.r, height: 28.r),
+        Image.asset(AppImage.notification, width: 28.r, height: 28.r),
       ],
     );
   }

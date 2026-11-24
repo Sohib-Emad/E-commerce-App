@@ -1,5 +1,6 @@
+import 'package:eco/core/routes/app_routes.dart';
 import 'package:eco/core/theme/app_image.dart';
-import 'package:eco/core/widgets/search_bar.dart';
+import 'package:eco/core/widgets/app_search_field.dart';
 import 'package:eco/feature/home/widgets/category.dart';
 import 'package:eco/feature/home/widgets/header_app.dart';
 import 'package:eco/feature/home/widgets/recent_product.dart';
@@ -20,9 +21,12 @@ class HomeBody extends StatelessWidget {
             children: [
               const HeaderApp(),
               SizedBox(height: 25.h),
-              const SearchBar2(),
+              AppSearchField(
+                readOnly: true,
+                onTap: () => Navigator.pushNamed(context, AppRoutes.search),
+              ),
               SizedBox(height: 25.h),
-              Image.asset(AppImage.banner1),
+              Image.asset(AppImage.banner),
               SizedBox(height: 18.h),
               const CategoryWidget(),
               SizedBox(height: 20.h),

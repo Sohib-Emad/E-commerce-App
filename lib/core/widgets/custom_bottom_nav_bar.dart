@@ -1,16 +1,12 @@
 import 'package:eco/core/theme/app_colors.dart';
+import 'package:eco/core/theme/app_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class _NavItem {
-  const _NavItem({
-    required this.image,
-    required this.activeIcon,
-    required this.label,
-  });
+  const _NavItem({required this.image, required this.label});
 
   final String image;
-  final String activeIcon;
   final String label;
 }
 
@@ -25,38 +21,20 @@ class CustomBottomNavBar extends StatelessWidget {
   final ValueChanged<int> onTap;
 
   static const _items = [
-    _NavItem(
-      image: 'assets/icons/Home.png',
-      activeIcon: 'assets/icons/Home.png',
-      label: 'Home',
-    ),
-    _NavItem(
-      image: 'assets/icons/Heart.png',
-      activeIcon: 'assets/icons/Heart.png',
-      label: 'Wishlist',
-    ),
-    _NavItem(
-      image: 'assets/icons/Paper.png',
-      activeIcon: 'assets/icons/Paper.png',
-      label: 'History',
-    ),
-    _NavItem(
-      image: 'assets/icons/Profile.png',
-      activeIcon: 'assets/icons/Profile.png',
-      label: 'Account',
-    ),
+    _NavItem(image: AppImage.home, label: 'Home'),
+    _NavItem(image: AppImage.heart, label: 'Wishlist'),
+    _NavItem(image: AppImage.paper, label: 'History'),
+    _NavItem(image: AppImage.profile, label: 'Account'),
   ];
-
-  static const _inactiveColor = Color(0xFF9E9E9E);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return DecoratedBox(
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: const Color(0x0F000000),
+            color: AppColors.navShadow,
             blurRadius: 12.r,
             offset: Offset(0, -2.h),
           ),
@@ -67,36 +45,39 @@ class CustomBottomNavBar extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.only(top: 12.h, bottom: 8.h),
           child: Row(
-            children: List.generate(_items.length, (index) {
-              final item = _items[index];
-              final isSelected = index == currentIndex;
-              final color = isSelected ? AppColors.greenSheen : _inactiveColor;
-
-              return Expanded(
-                child: InkWell(
-                  onTap: () => onTap(index),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Image.asset(
-                        isSelected ? item.image : item.image,
-                        width: 28.r,
-                        height: 28.r,
-                         color: color,
-                         colorBlendMode: BlendMode.srcIn,
-                      ),
-                      SizedBox(height: 4.h),
-                      Text(
-                        item.label,
-                        style: TextStyle(fontSize: 12.sp, color: color),
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            }),
+            children: [
+              for (var index = 0; index < _items.length; index++)
+                Expanded(child: _buildItem(index)),
+            ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildItem(int index) {
+    final item = _items[index];
+    final isSelected = index == currentIndex;
+    final color = isSelected ? AppColors.primary : AppColors.inactiveIcon;
+
+    return InkWell(
+      onTap: () => onTap(index),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Image.asset(
+            item.image,
+            width: 28.r,
+            height: 28.r,
+            color: color,
+            colorBlendMode: BlendMode.srcIn,
+          ),
+          SizedBox(height: 4.h),
+          Text(
+            item.label,
+            style: TextStyle(fontSize: 12.sp, color: color),
+          ),
+        ],
       ),
     );
   }

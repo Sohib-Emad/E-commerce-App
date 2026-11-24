@@ -1,35 +1,44 @@
-import 'package:flutter/material.dart';
-
 import 'package:eco/core/theme/app_colors.dart';
 import 'package:eco/core/theme/font_weight_helper.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppStyles {
-  static TextStyle homeheading1 = TextStyle(
+  const AppStyles._();
+
+  static final TextStyle subtitle = TextStyle(
     fontSize: 15.sp,
     fontWeight: FontWeightHelper.regular,
-    color: AppColors.homeheader1,
+    color: AppColors.textSecondary,
   );
-  static TextStyle homeheading2 = TextStyle(
+
+  static final TextStyle body = TextStyle(
     fontSize: 12.sp,
     fontWeight: FontWeightHelper.medium,
-    color: AppColors.homeheader2,
+    color: AppColors.textPrimary,
   );
-  static TextStyle category = TextStyle(
+
+  static final TextStyle sectionTitle = TextStyle(
     fontSize: 20.sp,
     fontWeight: FontWeightHelper.bold,
-    color: AppColors.homeheader2,
+    color: AppColors.textPrimary,
   );
 
-  static TextStyle searchResult = TextStyle(
+  static final TextStyle searchResult = TextStyle(
     fontSize: 14.sp,
     fontWeight: FontWeightHelper.regular,
-    color: AppColors.homeheader2,
+    color: AppColors.textPrimary,
   );
 
-  static TextStyle categoryName = TextStyle(
+  static final TextStyle itemTitle = TextStyle(
     fontSize: 12.sp,
     fontWeight: FontWeightHelper.regular,
-    color: AppColors.homeheader2,
+    color: AppColors.textPrimary,
+  );
+
+  static final TextStyle appBarTitle = TextStyle(
+    fontSize: 18.sp,
+    fontWeight: FontWeightHelper.semiBold,
+    color: AppColors.textPrimary,
   );
 }
