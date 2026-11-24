@@ -135,7 +135,7 @@ class ProductCard extends StatelessWidget {
                 SizedBox(height: 4.h),
                 Text("\$${product.price}", style: AppStyles.category),
                 SizedBox(height: 12.h),
-                const AddToCart(), // Use the AddToCart widget here
+                const AddToCart(), 
               ],
             ),
           ),

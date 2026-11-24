@@ -1,4 +1,3 @@
-// lib/feature/search/widgets/last_search_section.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
